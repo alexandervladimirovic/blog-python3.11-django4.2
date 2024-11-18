@@ -26,6 +26,7 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_posts', verbose_name=_("Автор"))
     created = models.DateTimeField(_("Дата создания"), auto_now_add=True)
     updated = models.DateTimeField(_("Дата обновления"), auto_now=True)
+    image = models.ImageField(_("Изображение"), upload_to='static/images/', blank=True, null=True)
     status = models.CharField(_("Статус"), 
                               max_length=2,
                                choices=Status.choices,

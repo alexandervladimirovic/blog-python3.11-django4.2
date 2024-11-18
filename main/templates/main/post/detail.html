@@ -1,0 +1,53 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<!-- title post -->
+<div class="container my-5">
+    <article class="mb-5">
+        <h1 class="display-4">{{ post.title }}</h1>
+        <p class="text-muted">
+            Опубликовано {{ post.publish|date:"F d, Y" }} <br>
+            Автор: {{ post.author }}
+        </p>
+        
+        <!-- image -->
+        {% if post.image %}
+        <div class="text-center my-4">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded">
+        </div>
+        {% endif %}
+
+        <div class="content mt-4">
+            {{ post.body|linebreaks }}
+        </div>
+    </article>
+
+    <!-- comment -->
+    <section id="comments" class="mt-5">
+        <h3>Комментарии</h3>
+        {% for comment in post.comments.all %}
+        <div class="border rounded p-3 my-3">
+            <p><strong>{{ comment.author }}</strong> on {{ comment.created_at|date:"F d, Y H:i" }}</p>
+            <p>{{ comment.body }}</p>
+        </div>
+        {% empty %}
+        <p class="text-muted">Здесь нет комментариев, будьте первым!</p>
+        {% endfor %}
+    </section>
+
+    <!-- new comment -->
+    <section id="add-comment" class="mt-5">
+        <h3>Написать комментарий</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="body" class="form-label">Ваш комментарий</label>
+                <textarea id="body" name="body" rows="4" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Комментарии поста</button>
+        </form>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'main:post_list' %}">Мой блог</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'main:post_list' %}">Главная страница</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">О нас</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Контакты</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <!-- content -->
+            <main class="col-lg-8" id="content">
+                {% block content %}
+
+                {% endblock %}
+            </main>
+
+            <!-- sidebar -->
+            <aside class="col-lg-4" id="sidebar">
+                <h2>О блоге</h2>
+                <p>Это место, где я делюсь своими мыслями, идеями и обновлениями.</p>
+                <hr>
+                <h5>Подписывайся на мои социальные сети:</h5>
+                <ul class="list-unstyled d-flex">
+                    <li class="me-3"><a href="#">Twitter</a></li>
+                    <li class="me-3"><a href="#">Instagram</a></li>
+                    <li><a href="https://github.com/alexandervladimirovic">GitHub</a></li>
+                </ul>
+            </aside>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <p class="text-center">&copy; 2024 Мой блог. Все права защищены.</p>
+    </footer>
+
+    
+    <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+</body>
+
+</html>
