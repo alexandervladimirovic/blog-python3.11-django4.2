@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 
 def first_letter_upper(value):
@@ -20,7 +21,7 @@ class Post(models.Model):
         PUBLISHED = 'PB', 'Published'
 
     title = models.CharField(_("Заголовок"), max_length=250, validators=[first_letter_upper])
-    slug = models.SlugField("URL", max_length=250)
+    slug = models.SlugField("URL", max_length=250, unique_for_date='publish')
     body = models.TextField(_("Описание"))
     publish = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_posts', verbose_name=_("Автор"))
@@ -46,4 +47,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('main:post_detail', args=[self.publish.year,
+                                                  self.publish.month,
+                                                    self.publish.day,
+                                                      self.slug])
+    
 

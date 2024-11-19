@@ -1,6 +1,6 @@
 {% extends "main/base.html" %}
 
-{% block title %}Blog Posts{% endblock %}
+{% block title %}Посты блога{% endblock %}
 
 {% block content %}
   <!-- title page -->
@@ -18,19 +18,20 @@
           <div class="card-body d-flex flex-column">
             <!-- title post -->
             <h2 class="card-title">
-              <a href="{% url 'main:post_detail' post.id %}" class="text-decoration-none text-dark">
+              <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
                 {{ post.title }}
               </a>
             </h2>
             
             <!-- date and author -->
             <p class="card-text text-muted mb-3">
-              <small>Published on {{ post.publish|date:"F d, Y" }} by {{ post.author }}</small>
+              <small>Опубликовано {{ post.publish|date:"F d, Y" }} <br>
+                Автор: {{ post.author }}</small>
             </p>
             
             <p>{{ post.body|truncatewords:25|linebreaks }}</p>
             
-            <a href="{% url 'main:post_detail' post.id %}" class="btn btn-primary mt-auto">Читать пост</a>
+            <a href="{{ post.get_absolute_url }}" class="btn btn-primary mt-auto">Читать пост</a>
           </div>
         </div>
       </div>
