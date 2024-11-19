@@ -28,7 +28,7 @@ class Post(models.Model):
     created = models.DateTimeField(_("Дата создания"), auto_now_add=True)
     updated = models.DateTimeField(_("Дата обновления"), auto_now=True)
     image = models.ImageField(_("Изображение"), upload_to='static/images/', blank=True, null=True)
-    status = models.CharField(_("Статус"), 
+    status = models.CharField(_("Статус"),
                               max_length=2,
                                choices=Status.choices,
                                  default=Status.DRAFT)
